@@ -146,7 +146,7 @@ pub fn parse_boundary<T: AsRef<str>>(content_type: T) -> Result<String> {
     let m = content_type
         .as_ref()
         .parse::<mime::Mime>()
-        .map_err(|err| crate::Error::DecodeContentType(err.into()))?;
+        .map_err(crate::Error::DecodeContentType)?;
 
     if !(m.type_() == mime::MULTIPART && m.subtype() == mime::FORM_DATA) {
         return Err(crate::Error::NoMultipart);
